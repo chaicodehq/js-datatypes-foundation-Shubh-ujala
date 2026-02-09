@@ -3,7 +3,7 @@
  *
  * Bhaiyya ji ka auto rickshaw hai. Meter se fare calculate hota hai.
  * Different math operations chahiye — round karna, min/max nikalna,
- * strings se numbers parse karna. Tu Bhaiyya ji ka meter software bana!
+ * strings se numbers parse karna. Tu Bhaiyya ji ka meter software bana! 
  *
  * Methods to explore: parseFloat(), parseInt(), .toFixed(),
  *   Math.ceil(), Math.max(), Math.min(), Math.abs()
@@ -52,20 +52,60 @@
  */
 export function parseFare(fareString) {
   // Your code here
+
+  if(typeof(fareString)!='string') return -1;
+  let num = parseFloat(fareString);
+  if(Number.isNaN(num)) return -1;
+  return num;
+
 }
 
 export function roundFare(amount, decimalPlaces) {
   // Your code here
+  if(typeof(amount)!='number' || decimalPlaces<0 || !Number.isInteger(decimalPlaces)) return "";
+  return String(amount.toFixed(decimalPlaces));
 }
 
 export function calculateSurge(baseFare, surgeMultiplier) {
   // Your code here
+  if(baseFare<0 || surgeMultiplier<0) return 0;
+  if(typeof(baseFare)!='number' || typeof(surgeMultiplier)!='number') return 0;
+  return Math.ceil(baseFare*surgeMultiplier);
 }
 
 export function findCheapestAndCostliest(...fares) {
   // Your code here
+  if(fares.length == 0) return null;
+  
+  let values = fares.filter(
+     v => typeof v === 'number' && !isNaN(v)
+  )
+
+  if(values.length == 0 ){
+    return null;
+  }
+  let max = -Infinity;
+  let min = Infinity;
+  for(let ele of values){
+    if(ele > max) max = ele;
+  }
+  for(let ele of values){
+    if(ele < min) min = ele;
+  }
+ if(isNaN(max) || isNaN(min)) return null;
+  return {
+    cheapest:min,
+    costliest:max,
+  }
 }
 
 export function getDistanceDifference(from, to) {
   // Your code here
+  let A = parseInt(from);
+  let B = parseInt(to);
+  if(Number.isNaN(A) || Number.isNaN(B)){
+    return -1;
+  }
+
+  return Math.abs(A-B);
 }
