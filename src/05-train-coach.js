@@ -37,7 +37,7 @@
  *      - Example: areAllConfirmed([{status:"confirmed"}, {status:"confirmed"}]) => true
  *
  *   5. getWaitlistedPassengers(passengers)
- *      - .filter() se sirf "waitlisted" passengers return karo
+ *      - .filter() se sirf "da" passengers return karo
  *      - Agar passengers array nahi hai, return []
  *      - Example: getWaitlistedPassengers([{name:"A",status:"confirmed"},{name:"B",status:"waitlisted"}])
  *                 => [{name:"B", status:"waitlisted"}]
@@ -49,20 +49,41 @@
  */
 export function findPassenger(passengers, name) {
   // Your code here
+  if(!Array.isArray(passengers) || typeof name != 'string') return undefined;
+
+  const obj = passengers.find((e)=> (e.name).toLowerCase() === name.toLowerCase())
+  return obj;
 }
 
 export function getPassengerIndex(passengers, name) {
   // Your code here
+    if(!Array.isArray(passengers) || typeof name != 'string') return -1;
+
+    const idx = passengers.findIndex((e) => (e.name).toLowerCase() == name.toLowerCase());
+
+    return idx;
 }
 
 export function isAnyWaitlisted(passengers) {
   // Your code here
+  if(!Array.isArray(passengers) || passengers.length ==0) return false;
+  
+  return passengers.some((e)=>e.status == 'waitlisted');
 }
 
 export function areAllConfirmed(passengers) {
   // Your code here
+  if(!Array.isArray(passengers) || passengers.length ==0) return false;
+
+  return passengers.every((e)=>e.status == 'confirmed');
+
 }
 
 export function getWaitlistedPassengers(passengers) {
   // Your code here
+  if(!Array.isArray(passengers)) return [];
+
+  const confirmedTickets = passengers.filter((e)=> e.status === 'waitlisted')
+
+  return confirmedTickets;
 }
